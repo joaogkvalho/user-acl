@@ -1,5 +1,9 @@
+import { SignIn } from '../components/SignIn'
+
+import './home.module.scss'
+
 export default function Home() {
   return (
-    <h1>Hello World</h1>
+    <SignIn />
   )
 }
