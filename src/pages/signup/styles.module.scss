@@ -1,0 +1,98 @@
+.signupFormWrapper{
+    width: 100%;
+    height: 100vh;
+    max-width: 1000px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto;
+
+    background: #17171a;
+
+    h1{
+        margin-bottom: 2rem;
+        font-weight: 400;
+    }
+}
+
+.signupForm{
+    max-width: 800px;
+
+    display: flex;
+    flex-direction: column;
+
+    h2{
+        margin-bottom: 1rem;
+
+        font-size: 1.25rem;
+        font-weight: 400;
+
+        color: #e1e1e6;
+    }
+
+    .personalData{
+        display: grid;
+        grid-template-columns: repeat(2, 2fr);
+        gap: 1.5rem;
+
+        margin-bottom: 2rem;
+
+        input{
+            width: 400px;
+            padding: 0.9rem 2rem;
+
+            background: #29292e;
+            border: 0;
+            outline: none;
+
+            font-size: 0.9rem;
+            color: #e1e1e6;
+        }
+    }
+
+    .adressData{
+        display: grid;
+        grid-template-columns: repeat(2, 2fr);
+        gap: 1.5rem;
+
+        margin-bottom: 2rem;
+
+        input{
+            width: 400px;
+            padding: 0.9rem 2rem;
+
+            background: #29292e;
+            border: 0;
+            outline: none;
+            
+            font-size: 0.9rem;
+            color: #e1e1e6;
+        }
+    }
+
+    .formButtons{
+        button{
+            padding: 0.8rem 2rem;
+            border: 0;
+            color: #17171a;
+        }
+
+        button[type="submit"]{
+            margin-right: 0.5rem;
+            padding: 0.8rem 2rem;
+    
+            background: #ff008e;
+            border: 0;
+            color: #e1e1e6;
+    
+            transition: filter 0.2s;
+        }
+    
+        button:hover{
+            filter: brightness(0.8);
+        }
+    }
+}

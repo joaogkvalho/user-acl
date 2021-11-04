@@ -5,7 +5,7 @@ import styles from './home.module.scss'
 export default function Home() {
   return (
     <div className={styles.signInBox}>
-      <h1>User ACL</h1>
+      <h1>user ACL</h1>
 
       <form className={styles.signInForm}>
           <input type="email" placeholder="Digite seu email" />
@@ -20,7 +20,7 @@ export default function Home() {
           ou
       </div>
 
-      <Link href="/signUp">
+      <Link href="/signup">
         <button className={styles.signUpButton}>Cadastre-se</button>
       </Link>
     </div>
