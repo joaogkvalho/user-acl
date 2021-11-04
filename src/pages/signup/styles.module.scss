@@ -11,11 +11,6 @@
     margin: 0 auto;
 
     background: #17171a;
-
-    h1{
-        margin-bottom: 2rem;
-        font-weight: 400;
-    }
 }
 
 .signupForm{
@@ -38,7 +33,7 @@
         grid-template-columns: repeat(2, 2fr);
         gap: 1.5rem;
 
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
 
         input{
             width: 400px;
@@ -58,7 +53,7 @@
         grid-template-columns: repeat(2, 2fr);
         gap: 1.5rem;
 
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
 
         input{
             width: 400px;
@@ -75,14 +70,14 @@
 
     .formButtons{
         button{
-            padding: 0.8rem 2rem;
+            padding: 0.75rem 2rem;
             border: 0;
             color: #17171a;
         }
 
         button[type="submit"]{
             margin-right: 0.5rem;
-            padding: 0.8rem 2rem;
+            padding: 0.75rem 2rem;
     
             background: #ff008e;
             border: 0;

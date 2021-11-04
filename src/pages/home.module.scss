@@ -23,11 +23,12 @@
     .signUpButton{
         width: 350px;
 
-        padding: 1rem 2rem;
+        padding: 0.9rem 2rem;
         margin-bottom: 2rem;
 
         border: 0;
         background: #eba417;
+
         color: #fff;
 
         transition: filter 0.2s;
@@ -52,10 +53,11 @@
     input{
         width: 350px;
 
-        padding: 1rem 2rem;
+        padding: 0.9rem 2rem;
         margin-bottom: 0.75rem;
 
-        color: #e1e1e6;
+        font-size: 0.9rem;
+        color: #e1e1e6; 
 
         border: 0;
         background: #29292e;
@@ -65,7 +67,7 @@
     button{
         width: 350px;
 
-        padding: 1rem 2rem;
+        padding: 0.9rem 2rem;
 
         border: 0;
         background: #ff008e;
