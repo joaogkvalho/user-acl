@@ -1,5 +1,6 @@
+import { FiAlertCircle } from 'react-icons/fi'
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { yupResolver } from "@hookform/resolvers/yup"
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup"
 import * as yup from 'yup'
 
 import Link from "next/link"
@@ -17,9 +18,11 @@ const signInSchema = yup.object().shape({
 })
 
 export default function Home() {
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signInSchema)
   })
+
+  const { errors } = formState  
 
   const handleSignIn: SubmitHandler<SignInFormData> = (data) => {
       console.log(data)
@@ -36,12 +39,14 @@ export default function Home() {
             name="email"
             {...register('email')} 
           />
+          <span>{errors.email?.message}</span>
           <input
             type="password"
             placeholder="Digite sua senha"
             name="password"
             {...register('password')} 
           />
+          <span>{errors.password?.message}</span>
 
           <button>
               Entrar
