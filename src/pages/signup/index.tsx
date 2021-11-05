@@ -8,11 +8,11 @@ export default function Signup() {
             <form className={styles.signupForm}>
                 <h2>Dados Pessoais</h2>
                 <div className={styles.personalData}>                    
-                    <input type="text" id="nameInput" name="name" placeholder="Nome" />                    
-                    <input type="email" id="emailInput" name="email" placeholder="Email" />                    
-                    <input type="password" id="passwordInput" name="password" placeholder="Senha" />                     
-                    <input type="password" id="passwordConfirmInput" name="passwordConfirm" placeholder="Confirme sua senha" />
-                    <input type="text" id="cpfOrCnpjInput" name="cpfOrCnpj" placeholder="CPF / CNPJ" />
+                    <input type="text" name="name" placeholder="Nome" />                    
+                    <input type="email" name="email" placeholder="Email" />                    
+                    <input type="password" name="password" placeholder="Senha" />                     
+                    <input type="password" name="passwordConfirmation" placeholder="Confirme sua senha" />
+                    <input type="text" name="cpfOrCnpj" placeholder="CPF / CNPJ" />
                 </div>
 
                 <h2>Informações de endereço</h2>
