@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 
 import Link from 'next/link'
 import styles from './styles.module.scss'
+import { api } from '../../services/api'
 
 type SignupFormData = {
     name: string;
@@ -42,8 +43,23 @@ export default function Signup() {
 
     const { errors } = formState
 
-    const handleCreateUser: SubmitHandler<SignupFormData> = (data) => {
-        console.log(data)
+    async function handleCreateUser(data: SignupFormData){
+        const dataFormatted = {
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            cpf_cnpj: data.cpfOrCnpj,
+            cep: data.cep,
+            address: data.adress,
+            complement: data.complement,
+            city: data.city,
+            country: data.country,
+            state: data.state
+        }
+
+        const response = await api.post('/accounts/sign-up', dataFormatted)
+
+        console.log(response.data)
     }
 
     return(
