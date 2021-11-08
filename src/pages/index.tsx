@@ -50,15 +50,15 @@ export default function Home() {
           <button>
               Entrar
           </button>
+
+          <div className={styles.separator}>
+            ou
+          </div>
+
+          <Link href="/signup">
+            <button className={styles.signUpButton}>Cadastre-se</button>
+          </Link>
       </form>
-
-      <div className={styles.separator}>
-          ou
-      </div>
-
-      <Link href="/signup">
-        <button className={styles.signUpButton}>Cadastre-se</button>
-      </Link>
     </div>
   )
 }

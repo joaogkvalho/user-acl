@@ -1,5 +1,5 @@
 .signInBox{
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     max-width: 600px;
 
@@ -8,47 +8,26 @@
     align-items: center;
     justify-content: center;
 
-    padding: 3rem;
     margin: 0 auto;
 
-    background: #17171a;
-
     h1{
-        margin-bottom: 4rem;
+        margin-bottom: 2rem;
 
         font-size: 2.5rem;
         font-weight: 400;
     }
-
-    .signUpButton{
-        width: 350px;
-
-        padding: 0.9rem 2rem;
-        margin-bottom: 2rem;
-
-        border: 0;
-        background: #eba417;
-
-        color: #fff;
-
-        transition: filter 0.2s;
-    }
-
-    .signUpButton:hover{
-        filter: brightness(0.8);
-    }
-
-    .separator{
-        margin: 1rem 0;
-        color: #e1e1e6;
-    }
 }
 
 .signInForm{
+    width: 100%;
+    max-width: 500px;
+
     display: flex;
     flex-direction: column;
-    // align-items: center;
+    align-items: center;
     justify-content: center;
+
+    padding: 3rem 0;
 
     input{
         width: 350px;
@@ -64,7 +43,7 @@
         outline: none;
     }
 
-    span{
+    span{        
         margin-bottom: 0.75rem;
         
         font-size: 0.7rem;
@@ -85,5 +64,27 @@
 
     button:hover{
         filter: brightness(0.8);
+    }
+
+    .signUpButton{
+        width: 350px;
+
+        padding: 0.9rem 2rem;
+
+        border: 0;
+        background: #eba417;
+
+        color: #fff;
+
+        transition: filter 0.2s;
+    }
+
+    .signUpButton:hover{
+        filter: brightness(0.8);
+    }
+
+    .separator{
+        margin: 1rem 0;
+        color: #e1e1e6;
     }
 }

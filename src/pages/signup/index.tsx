@@ -53,17 +53,17 @@ export default function Signup() {
                 <div className={styles.personalData}>                    
                     <div>
                         <input type="text" name="name" placeholder="Nome" {...register('name')} />
-                        <span>{errors.name?.message}</span>
+                        <p>{errors.name?.message}</p>
                     </div>
 
                     <div>
                         <input type="email" name="email" placeholder="Email" {...register('email')} />  
-                        <span>{errors.email?.message}</span>
+                        <p>{errors.email?.message}</p>
                     </div>
 
                     <div>
                         <input type="password" name="password" placeholder="Senha" {...register('password')} />                     
-                        <span>{errors.password?.message}</span>
+                        <p>{errors.password?.message}</p>
                     </div>
 
                     <div>
@@ -73,12 +73,12 @@ export default function Signup() {
                         placeholder="Confirme sua senha"
                         {...register('passwordConfirmation')} 
                         />
-                        <span>{errors.passwordConfirmation?.message}</span>
+                        <p>{errors.passwordConfirmation?.message}</p>
                     </div>
 
                     <div>
                         <input type="text" name="cpfOrCnpj" placeholder="CPF / CNPJ" {...register('cpfOrCnpj')} />
-                        <span>{errors.cpfOrCnpj ?.message}</span>
+                        <p>{errors.cpfOrCnpj ?.message}</p>
                     </div>
                 </div>
 
@@ -86,32 +86,32 @@ export default function Signup() {
                 <div className={styles.adressData}>                    
                     <div>
                         <input type="text" name="adress" placeholder="Endereço" {...register('adress')} />
-                        <span>{errors.adress?.message}</span> 
+                        <p>{errors.adress?.message}</p> 
                     </div>
                                        
                     <div>
                         <input type="text"  name="complement" placeholder="Complemento" {...register('complement')} /> 
-                        <span>{errors.complement?.message}</span>
+                        <p>{errors.complement?.message}</p>
                     </div>
 
                     <div>
                         <input type="text" name="state" placeholder="Estado" {...register('state')} />
-                        <span>{errors.state?.message}</span>                     
+                        <p>{errors.state?.message}</p>                     
                     </div>
 
                     <div>
                         <input type="text" name="city" placeholder="Cidade" {...register('city')} />
-                        <span>{errors.city?.message}</span>
+                        <p>{errors.city?.message}</p>
                     </div>
 
                     <div>
                         <input type="text" name="country" placeholder="País" {...register('country')} />
-                        <span>{errors.country?.message}</span>                     
+                        <p>{errors.country?.message}</p>                     
                     </div>
 
                     <div>
                         <input type="text" name="cep" placeholder="CEP" {...register('cep')} />
-                        <span>{errors.cep?.message}</span>
+                        <p>{errors.cep?.message}</p>
                     </div>
                 </div>
 
