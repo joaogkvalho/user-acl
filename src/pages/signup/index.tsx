@@ -1,6 +1,10 @@
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
+import { ToastContainer, toast } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 import Link from 'next/link'
 import styles from './styles.module.scss'
@@ -57,9 +61,43 @@ export default function Signup() {
             state: data.state
         }
 
-        const response = await api.post('/accounts/sign-up', dataFormatted)
+        const toastSuccess = () => toast.success('Usuário criado com sucesso', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            draggable: true,
+        })
 
-        console.log(response.data)
+        const toastGeneralError = () => toast.error('Erro interno ao criar conta', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            draggable: true,
+        })
+
+        const toastDuplicityError = () => toast.error('Usuário já cadastrado no banco de dados', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            draggable: true,
+        })
+
+        try{
+            const response = await api.post('/accounts/sign-up', dataFormatted)
+
+            console.log(response.data)
+
+            toastSuccess()
+        } catch(err){
+            if(err.response?.status === 409){
+                toastDuplicityError()
+            } else {
+                toastGeneralError()
+            }
+        }
     }
 
     return(
@@ -139,6 +177,8 @@ export default function Signup() {
                     </Link>
                 </div>
             </form>
+
+            <ToastContainer />
         </div>
     )
 }
