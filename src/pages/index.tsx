@@ -1,10 +1,12 @@
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup"
 import * as yup from 'yup'
 
 import Link from "next/link"
 
 import styles from './home.module.scss'
+import { api } from '../services/api'
 
 type SignInFormData = {
   email: string;
@@ -17,14 +19,28 @@ const signInSchema = yup.object().shape({
 })
 
 export default function Home() {
-  const { register, handleSubmit, formState } = useForm({
+  const router = useRouter()
+
+  const { register, handleSubmit, formState, reset } = useForm({
     resolver: yupResolver(signInSchema)
   })
 
   const { errors } = formState  
 
-  const handleSignIn: SubmitHandler<SignInFormData> = (data) => {
-      console.log(data)
+  async function handleSignIn(data: SignInFormData){
+        const dataFormatted = {
+          email: data.email,
+          password: data.password
+        }
+
+        try{
+          const response = await api.post('auth/sign-in', dataFormatted)
+
+          console.log(response.data)
+          router.push('homepage')
+        } catch(err){
+          console.log(err.response.data)
+        }
   }
 
   return (
