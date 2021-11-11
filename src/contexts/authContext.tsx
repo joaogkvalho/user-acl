@@ -1,6 +1,5 @@
 import { useRouter } from "next/router"
 import { createContext, ReactNode } from "react"
-import { useForm } from 'react-hook-form'
 import { toast } from "react-toastify"
 import { api } from '../services/api'
 
@@ -17,8 +16,14 @@ type SignupFormData = {
     cep: string;
 }
 
+type SignInFormData = {
+    email: string;
+    password: string;
+  }
+
 type AuthContextData = {
     handleCreateUser: (data: SignupFormData) => void
+    handleSignIn: (data: SignInFormData) => void
 }
 
 type AuthProviderProps = {
@@ -29,7 +34,6 @@ export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider(props: AuthProviderProps){
     const router = useRouter()
-    const { reset } = useForm()
 
     async function handleCreateUser(data: SignupFormData){
         const dataFormatted = {
@@ -73,8 +77,6 @@ export function AuthProvider(props: AuthProviderProps){
             await api.post('/accounts/sign-up', dataFormatted)
 
             toastSuccess()
-            reset()
-
             setTimeout(() => router.push('/'), 3000)
         } catch(err){
             if(err.response?.status === 409){
@@ -85,8 +87,43 @@ export function AuthProvider(props: AuthProviderProps){
         }
     }
 
+    async function handleSignIn(data: SignInFormData){
+        const dataFormatted = {
+          email: data.email,
+          password: data.password
+        }
+
+        const toastGeneralError = () => toast.error('Erro interno no servidor', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+        })
+
+        const toastWrongDataError = () => toast.error('Email ou senha incorretos', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+        })
+
+        try{
+          await api.post('auth/sign-in', dataFormatted)
+
+          router.push('homepage')
+        } catch(err){
+          if(err.response?.status === 401){
+            toastWrongDataError()
+          } else {
+            toastGeneralError()
+          }
+        } 
+  }
+
     return(
-        <AuthContext.Provider value={{ handleCreateUser }}>
+        <AuthContext.Provider value={{ handleCreateUser, handleSignIn }}>
             {props.children}
         </AuthContext.Provider>
     )
