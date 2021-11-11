@@ -2,8 +2,10 @@ import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup"
 import * as yup from 'yup'
+import { ToastContainer, toast } from 'react-toastify'
 
 import Link from "next/link"
+import 'react-toastify/dist/ReactToastify.css'
 
 import styles from './home.module.scss'
 import { api } from '../services/api'
@@ -33,14 +35,33 @@ export default function Home() {
           password: data.password
         }
 
-        try{
-          const response = await api.post('auth/sign-in', dataFormatted)
+        const toastGeneralError = () => toast.error('Erro interno no servidor', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+        })
 
-          console.log(response.data)
+        const toastWrongDataError = () => toast.error('Email ou senha incorretos', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          draggable: true,
+        })
+
+        try{
+          await api.post('auth/sign-in', dataFormatted)
+
           router.push('homepage')
         } catch(err){
-          console.log(err.response.data)
-        }
+          if(err.response?.status === 401){
+            toastWrongDataError()
+          } else {
+            toastGeneralError()
+          }
+        } 
   }
 
   return (
@@ -75,6 +96,8 @@ export default function Home() {
             <button className={styles.signUpButton}>Cadastre-se</button>
           </Link>
       </form>
+
+      <ToastContainer />
     </div>
   )
 }
