@@ -1,7 +1,15 @@
 import { useRouter } from "next/router"
-import { createContext, ReactNode } from "react"
+import { createContext, ReactNode, useState } from "react"
 import { toast } from "react-toastify"
 import { api } from '../services/api'
+
+type UserTenant = {
+  name: string;
+  email: string;
+  city: string;
+  country: string;
+}
+
 
 type SignupFormData = {
     name: string;
@@ -22,6 +30,7 @@ type SignInFormData = {
   }
 
 type AuthContextData = {
+    userTenant: UserTenant | null
     handleCreateUser: (data: SignupFormData) => void
     handleSignIn: (data: SignInFormData) => void
 }
@@ -30,9 +39,22 @@ type AuthProviderProps = {
     children: ReactNode
 }
 
+type SignUpAuthResponse = {
+  tenant: UserTenant | null
+}
+
+type SignInAuthResponse = {
+  token: string;
+  user: {
+    name: string;
+    role: string;
+  }
+}
+
 export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider(props: AuthProviderProps){
+  const [ userTenant, setUserTenant ] = useState(null)
     const router = useRouter()
 
     async function handleCreateUser(data: SignupFormData){
@@ -49,7 +71,7 @@ export function AuthProvider(props: AuthProviderProps){
             state: data.state
         }
 
-        const toastSuccess = () => toast.success('Usuário criado com sucesso', {
+        const toastSuccess = () => toast.success('Usuário cadastrado com sucesso', {
             position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
@@ -74,8 +96,11 @@ export function AuthProvider(props: AuthProviderProps){
         })
 
         try{
-            await api.post('/accounts/sign-up', dataFormatted)
+            const response = await api.post<SignUpAuthResponse>('/accounts/sign-up', dataFormatted)
 
+            const { tenant } = response.data
+            setUserTenant(tenant)
+            
             toastSuccess()
             setTimeout(() => router.push('/'), 3000)
         } catch(err){
@@ -110,8 +135,11 @@ export function AuthProvider(props: AuthProviderProps){
         })
 
         try{
-          await api.post('auth/sign-in', dataFormatted)
+          const response = await api.post<SignInAuthResponse>('auth/sign-in', dataFormatted)
 
+          const { token } = response.data
+
+          localStorage.setItem('@user:token', token)
           router.push('homepage')
         } catch(err){
           if(err.response?.status === 401){
@@ -120,10 +148,10 @@ export function AuthProvider(props: AuthProviderProps){
             toastGeneralError()
           }
         } 
-  }
+    }
 
     return(
-        <AuthContext.Provider value={{ handleCreateUser, handleSignIn }}>
+        <AuthContext.Provider value={{ handleCreateUser, userTenant , handleSignIn }}>
             {props.children}
         </AuthContext.Provider>
     )
