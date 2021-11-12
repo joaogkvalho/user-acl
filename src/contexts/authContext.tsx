@@ -1,15 +1,12 @@
 import { useRouter } from "next/router"
-import { createContext, ReactNode, useState } from "react"
+import { createContext, ReactNode, useEffect, useState } from "react"
 import { toast } from "react-toastify"
 import { api } from '../services/api'
 
-type UserTenant = {
-  name: string;
-  email: string;
-  city: string;
-  country: string;
+type User = {
+  name: string,
+  roles: string,
 }
-
 
 type SignupFormData = {
     name: string;
@@ -30,7 +27,7 @@ type SignInFormData = {
   }
 
 type AuthContextData = {
-    userTenant: UserTenant | null
+    user: User
     handleCreateUser: (data: SignupFormData) => void
     handleSignIn: (data: SignInFormData) => void
 }
@@ -39,22 +36,15 @@ type AuthProviderProps = {
     children: ReactNode
 }
 
-type SignUpAuthResponse = {
-  tenant: UserTenant | null
-}
-
 type SignInAuthResponse = {
   token: string;
-  user: {
-    name: string;
-    role: string;
-  }
+  user: User
 }
 
 export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider(props: AuthProviderProps){
-  const [ userTenant, setUserTenant ] = useState(null)
+  const [ user, setUser ] = useState({} as User)
     const router = useRouter()
 
     async function handleCreateUser(data: SignupFormData){
@@ -96,10 +86,7 @@ export function AuthProvider(props: AuthProviderProps){
         })
 
         try{
-            const response = await api.post<SignUpAuthResponse>('/accounts/sign-up', dataFormatted)
-
-            const { tenant } = response.data
-            setUserTenant(tenant)
+            await api.post('/accounts/sign-up', dataFormatted)            
             
             toastSuccess()
             setTimeout(() => router.push('/'), 3000)
@@ -137,9 +124,11 @@ export function AuthProvider(props: AuthProviderProps){
         try{
           const response = await api.post<SignInAuthResponse>('auth/sign-in', dataFormatted)
 
-          const { token } = response.data
+          const { token, user } = response.data
 
-          localStorage.setItem('@user:token', token)
+          localStorage.setItem('@user:token', token)          
+
+          setUser(user)
           router.push('homepage')
         } catch(err){
           if(err.response?.status === 401){
@@ -151,7 +140,7 @@ export function AuthProvider(props: AuthProviderProps){
     }
 
     return(
-        <AuthContext.Provider value={{ handleCreateUser, userTenant , handleSignIn }}>
+        <AuthContext.Provider value={{ handleCreateUser, user , handleSignIn }}>
             {props.children}
         </AuthContext.Provider>
     )
