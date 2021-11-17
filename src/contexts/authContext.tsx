@@ -30,6 +30,7 @@ type AuthContextData = {
     user: User
     handleCreateUser: (data: SignupFormData) => void
     handleSignIn: (data: SignInFormData) => void
+    signOut: () => void
 }
 
 type AuthProviderProps = {
@@ -46,6 +47,15 @@ export const AuthContext = createContext({} as AuthContextData)
 export function AuthProvider(props: AuthProviderProps){
     const [ user, setUser ] = useState({} as User)
     const router = useRouter()
+
+    useEffect(() => {
+      setUser(JSON.parse(localStorage.getItem('@user:data')))
+    }, [])
+
+    useEffect(() => {
+      localStorage.setItem('@user:data', JSON.stringify(user))
+    }, [user])
+
 
     async function handleCreateUser(data: SignupFormData){
         const dataFormatted = {
@@ -137,8 +147,13 @@ export function AuthProvider(props: AuthProviderProps){
         } 
     }
 
+    function signOut(){
+      setUser(null)
+      localStorage.removeItem('@user:data')
+    }
+
     return(
-        <AuthContext.Provider value={{ handleCreateUser, user , handleSignIn }}>
+        <AuthContext.Provider value={{ handleCreateUser, user , handleSignIn, signOut }}>
             {props.children}
         </AuthContext.Provider>
     )

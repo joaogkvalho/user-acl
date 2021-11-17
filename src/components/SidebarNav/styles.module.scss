@@ -1,13 +1,14 @@
 .content{
     h2{
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
 
-        font-size: 1.15rem;
+        font-size: 1.10rem;
         font-weight: 400;
         color: #a8a8b3;
     }
 
     ul{
+        margin-bottom: 2rem;
         list-style: none;
 
         li{
@@ -16,7 +17,7 @@
 
             padding-bottom: 1.75rem;
 
-            font-size: 1rem;
+            font-size: 0.9rem;
             cursor: pointer;
 
             svg{
@@ -28,5 +29,20 @@
         li:hover{
             text-decoration: underline;
         }
+    }
+
+    button{
+        width: 150px;
+        padding: 0.7rem 1rem;
+
+        border: 0;
+        background: #ff008e;
+        color: #fff;
+
+        transition: filter 0.2s;
+    }
+
+    button:hover{
+        filter: brightness(0.8);
     }
 }

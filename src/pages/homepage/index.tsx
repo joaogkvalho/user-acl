@@ -1,4 +1,5 @@
-import { useContext } from "react"
+import router from "next/router"
+import { useContext, useEffect } from "react"
 import { Header } from "../../components/Header"
 import { HomepageContent } from "../../components/HomepageContent"
 import { SidebarNav } from "../../components/SidebarNav"
@@ -7,7 +8,11 @@ import { AuthContext } from "../../contexts/authContext"
 import styles from './styles.module.scss'
 
 export default function Homepage(){
-    const { user } = useContext(AuthContext)
+    let { user } = useContext(AuthContext)
+
+    if(!user){
+        router.push('/')
+    }
     
     return(
         <div className={styles.container}>
