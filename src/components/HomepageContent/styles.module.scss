@@ -1,0 +1,14 @@
+.content{
+    display: flex;
+}
+
+.box{
+    width: 400px;
+    height: 250px;
+    background: #1f2029;
+    border-radius: 10px;
+}
+
+.box:nth-child(1){
+    margin-right: 1rem;
+}

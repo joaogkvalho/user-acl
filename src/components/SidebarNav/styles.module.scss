@@ -1,0 +1,32 @@
+.content{
+    h2{
+        margin-bottom: 2rem;
+
+        font-size: 1.15rem;
+        font-weight: 400;
+        color: #a8a8b3;
+    }
+
+    ul{
+        list-style: none;
+
+        li{
+            display: flex;
+            align-items: center;
+
+            padding-bottom: 1.75rem;
+
+            font-size: 1rem;
+            cursor: pointer;
+
+            svg{
+                font-size: 1.5rem;
+                margin-right: 1rem;
+            }
+        }
+
+        li:hover{
+            text-decoration: underline;
+        }
+    }
+}
