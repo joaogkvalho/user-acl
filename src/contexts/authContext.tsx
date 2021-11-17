@@ -44,7 +44,7 @@ type SignInAuthResponse = {
 export const AuthContext = createContext({} as AuthContextData)
 
 export function AuthProvider(props: AuthProviderProps){
-  const [ user, setUser ] = useState({} as User)
+    const [ user, setUser ] = useState({} as User)
     const router = useRouter()
 
     async function handleCreateUser(data: SignupFormData){
@@ -124,12 +124,10 @@ export function AuthProvider(props: AuthProviderProps){
         try{
           const response = await api.post<SignInAuthResponse>('auth/sign-in', dataFormatted)
 
-          const { token, user } = response.data
-
-          localStorage.setItem('@user:token', token)          
+          const { user } = response.data
 
           setUser(user)
-          router.push('homepage')
+          router.push('homepage')          
         } catch(err){
           if(err.response?.status === 401){
             toastWrongDataError()
