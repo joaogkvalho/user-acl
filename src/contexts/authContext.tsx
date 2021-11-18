@@ -56,7 +56,6 @@ export function AuthProvider(props: AuthProviderProps){
       localStorage.setItem('@user:data', JSON.stringify(user))
     }, [user])
 
-
     async function handleCreateUser(data: SignupFormData){
         const dataFormatted = {
             name: data.name,
@@ -134,7 +133,9 @@ export function AuthProvider(props: AuthProviderProps){
         try{
           const response = await api.post<SignInAuthResponse>('auth/sign-in', dataFormatted)
 
-          const { user } = response.data
+          const { user, token } = response.data
+
+          localStorage.setItem('@user:token', token)
 
           setUser(user)
           router.push('homepage')          
@@ -144,12 +145,13 @@ export function AuthProvider(props: AuthProviderProps){
           } else {
             toastGeneralError()
           }
-        } 
+        }
     }
 
     function signOut(){
       setUser(null)
       localStorage.removeItem('@user:data')
+      localStorage.removeItem('@user:token')
     }
 
     return(
